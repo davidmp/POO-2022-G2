@@ -27,6 +27,7 @@ public class GUIMain extends JFrame {
     JMenuBar menuBar;
     JMenu menu1;
     JMenuItem jmI1;
+    JMenuItem jmI2; //Agregado
     JTabbedPane jtpane;
     JPanel jp;
     JScrollPane scrollPane;
@@ -38,16 +39,22 @@ public class GUIMain extends JFrame {
         menuBar = new JMenuBar();
         menu1 = new JMenu("Archivo");
         jmI1 = new JMenuItem("Abrir");
-        menuBar.add(menu1);
+        jmI2 = new JMenuItem("Adm. Cliente");//Agregado
+
         menu1.add(jmI1);
+        menu1.add(jmI2);//Agregado
+        menuBar.add(menu1);
         menu1 = new JMenu("Ver");
         menuBar.add(menu1);
         this.add(menuBar);
+        jtpane = new JTabbedPane();//agregado
         MenuItemListener menuItemListener = new MenuItemListener();
         jmI1.addActionListener(menuItemListener);
+        jmI2.addActionListener(menuItemListener);//ecuchar la accion
+
         this.getContentPane().add(BorderLayout.NORTH, menuBar);
         //this.getContentPane().add(BorderLayout.CENTER, jtpane);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     class MenuItemListener implements ActionListener {
@@ -57,7 +64,7 @@ public class GUIMain extends JFrame {
             System.out.println("pasa por aqui");
             Container contai = GUIMain.this.getContentPane();
             if (e.getSource() == jmI1) {
-                jtpane = new JTabbedPane();
+                jtpane.removeAll();//remueve todo el contenido
                 jp = new JPanel();
                 jtpane.add("Prueba", jp);
                 jp = new JPanel();
@@ -81,6 +88,21 @@ public class GUIMain extends JFrame {
                 contai.validate();
                 contai.repaint();
             }
+
+            if (e.getSource() == jmI2) {
+                System.out.println("Holas");
+                jtpane.removeAll();
+                jp = new JPanel();
+                jtpane.add("Prueba", jp);
+                //jtpane.add("dd", new JPanel());  
+                contai.add(BorderLayout.CENTER, jtpane);
+                //contai.remove(jtpane);
+                //contai.revalidate();
+                contai.invalidate();
+                contai.validate();
+
+            }
+
         }
     }
 
