@@ -5,7 +5,10 @@
 
 package pe.edu.upeu.app;
 
+import pe.edu.upeu.app.dao.ClienteDAO;
+import pe.edu.upeu.app.dao.ClienteDaoI;
 import pe.edu.upeu.app.gui.Login;
+import pe.edu.upeu.app.modelo.ClienteTO;
 
 /**
  *
@@ -16,5 +19,9 @@ public class SysVentasGUIG2 {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         new Login().setVisible(true);
+        ClienteDaoI dao=new ClienteDAO();
+        for (ClienteTO listarCliente : dao.listarClientes()) {
+            System.out.println(""+listarCliente.getDniruc() +"\t"+ listarCliente.nombresrs);
+        }
     }
 }

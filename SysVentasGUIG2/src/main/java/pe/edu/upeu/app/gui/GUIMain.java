@@ -92,8 +92,8 @@ public class GUIMain extends JFrame {
             if (e.getSource() == jmI2) {
                 System.out.println("Holas");
                 jtpane.removeAll();
-                jp = new JPanel();
-                jtpane.add("Prueba", jp);
+                MainCliente mc= new MainCliente();
+                jtpane.add("Prueba", mc);
                 //jtpane.add("dd", new JPanel());  
                 contai.add(BorderLayout.CENTER, jtpane);
                 //contai.remove(jtpane);
