@@ -58,7 +58,13 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lbnImage = new javax.swing.JLabel();
         fondoPanel1 = new pe.edu.upeu.app.components.FondoPanel();
-        btnIngresar = new javax.swing.JButton();
+        panelBorder1 = new pe.edu.upeu.app.components.PanelBorder();
+        jLabel1 = new javax.swing.JLabel();
+        myButton1 = new pe.edu.upeu.app.components.MyButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,28 +87,53 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnIngresar.setText("Ingresar");
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Login");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        panelBorder1.add(jLabel1);
+        jLabel1.setBounds(10, 20, 130, 20);
+
+        myButton1.setText("Ingresar");
+        myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
+                myButton1ActionPerformed(evt);
             }
         });
+        panelBorder1.add(myButton1);
+        myButton1.setBounds(10, 170, 130, 22);
+
+        jLabel2.setText("Usuario");
+        panelBorder1.add(jLabel2);
+        jLabel2.setBounds(10, 50, 140, 16);
+        panelBorder1.add(jTextField1);
+        jTextField1.setBounds(10, 70, 130, 22);
+
+        jLabel3.setText("Password");
+        panelBorder1.add(jLabel3);
+        jLabel3.setBounds(10, 100, 130, 16);
+
+        jPasswordField1.setText("jPasswordField1");
+        panelBorder1.add(jPasswordField1);
+        jPasswordField1.setBounds(10, 120, 130, 22);
 
         javax.swing.GroupLayout fondoPanel1Layout = new javax.swing.GroupLayout(fondoPanel1);
         fondoPanel1.setLayout(fondoPanel1Layout);
         fondoPanel1Layout.setHorizontalGroup(
             fondoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoPanel1Layout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
-                .addComponent(btnIngresar)
-                .addGap(43, 43, 43))
+            .addGroup(fondoPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         fondoPanel1Layout.setVerticalGroup(
             fondoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fondoPanel1Layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(btnIngresar)
-                .addContainerGap(207, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoPanel1Layout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,21 +160,27 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
         // TODO add your handling code here:
-        GUIMain gm=new GUIMain();
+                GUIMain gm=new GUIMain();
         gm.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnIngresarActionPerformed
+    }//GEN-LAST:event_myButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngresar;
     private pe.edu.upeu.app.components.FondoPanel fondoPanel1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbnImage;
+    private pe.edu.upeu.app.components.MyButton myButton1;
+    private pe.edu.upeu.app.components.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
 }
