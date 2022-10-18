@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import pe.edu.upeu.app.dao.ClienteDAO;
 import pe.edu.upeu.app.dao.ClienteDaoI;
 import pe.edu.upeu.app.modelo.ClienteTO;
+import pe.edu.upeu.app.util.MsgBox;
 
 /**
  *
@@ -23,6 +24,7 @@ public class MainCliente extends javax.swing.JPanel {
 
     ClienteDaoI cDao;
     DefaultTableModel modelo;
+    MsgBox msg;
 
     public MainCliente() {
         initComponents();
@@ -324,13 +326,17 @@ public class MainCliente extends javax.swing.JPanel {
             }
         } else {
             try {
-                if (cDao.create(to) != 0) {
-                    modelo = (DefaultTableModel) jTable1.getModel();
-                    Object nuevo[] = {modelo.getRowCount() + 1, to.getDniruc(), to.getNombresrs(), to.getTipo()};
-                    modelo.addRow(nuevo);
-                    resetForm();
-                    JOptionPane.showMessageDialog(this, "Re registro");
+                msg = new MsgBox();
+                if (msg.showConfirmCustom("Esta seguro de crear un nuevo cliente ?", "Mensaje de Confirmación", "") == 0) {
+                    if (cDao.create(to) != 0) {
+                        modelo = (DefaultTableModel) jTable1.getModel();
+                        Object nuevo[] = {modelo.getRowCount() + 1, to.getDniruc(), to.getNombresrs(), to.getTipo()};
+                        modelo.addRow(nuevo);
+                        resetForm();
+                        //JOptionPane.showMessageDialog(this, "Re registro");
+                    }
                 }
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
@@ -344,10 +350,14 @@ public class MainCliente extends javax.swing.JPanel {
                 modelo = (DefaultTableModel) jTable1.getModel();
                 int rowx = jTable1.getSelectedRow();
                 Object valor = jTable1.getValueAt(rowx, 1);
-                JOptionPane.showMessageDialog(this, valor);
-                modelo.removeRow(rowx);
-                cDao.delete(valor.toString());
-                resetForm();
+
+                msg = new MsgBox();
+                if (msg.showConfirmCustom("Esta seguro de eliminar este registrtro DNI: " + valor + "?", "Mensaje de Confirmación", "") == 0) {
+                    modelo.removeRow(rowx);
+                    cDao.delete(valor.toString());
+                    resetForm();
+                }
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }

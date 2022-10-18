@@ -93,7 +93,11 @@ public class GUIMain extends JFrame {
                 System.out.println("Holas");
                 jtpane.removeAll();
                 MainCliente mc= new MainCliente();
-                jtpane.add("Prueba", mc);
+                scrollPane = new JScrollPane(mc);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                jtpane.add("Adm. Cliente",scrollPane);                
+                //jtpane.add("Prueba", mc);
                 //jtpane.add("dd", new JPanel());  
                 contai.add(BorderLayout.CENTER, jtpane);
                 //contai.remove(jtpane);
