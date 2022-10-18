@@ -21,6 +21,15 @@ public class MyButton extends JButton {
 
     public boolean over;
     private Color colorOver;
+    private Color colorOverX;
+
+    public Color getColorOverX() {
+        return colorOverX;
+    }
+
+    public void setColorOverX(Color colorOverX) {
+        this.colorOverX = colorOverX;
+    }
     private Color color;
     private Color colorClick;
 

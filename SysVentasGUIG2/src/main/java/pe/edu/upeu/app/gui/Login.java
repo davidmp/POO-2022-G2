@@ -97,6 +97,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setBounds(10, 20, 130, 20);
 
         myButton1.setText("Ingresar");
+        myButton1.setColor(new java.awt.Color(255, 102, 102));
         myButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 myButton1ActionPerformed(evt);
