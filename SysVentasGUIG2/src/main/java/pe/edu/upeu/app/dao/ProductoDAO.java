@@ -82,9 +82,9 @@ public class ProductoDAO implements ProductoDaoI{
             while (rs.next()) {
                 ModeloDataAutocomplet data = new ModeloDataAutocomplet();
                 ModeloDataAutocomplet.TIPE_DISPLAY = "ID";
-                data.setIdx(rs.getString("id_producto"));
-                data.setNombreDysplay(rs.getString("nombre"));
-                data.setOtherData(rs.getString("pu"));
+                data.setIdx(rs.getString("nombre"));
+                data.setNombreDysplay(rs.getString("id_producto"));
+                data.setOtherData(rs.getDouble("pu")+":"+rs.getDouble("stock"));
                 listarProducto.add(data);
             }
         } catch (SQLException e) {

@@ -40,6 +40,9 @@ public class MainVentas extends javax.swing.JPanel {
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN)
                         && AutoCompleteTextField.dataGetReturnet != null) {
+                        //txtAutoCompDNI.setText(AutoCompleteTextField.dataGetReturnet.getIdx());
+                        txtNombreCliente.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
+                    /*
                     if (ModeloDataAutocomplet.TIPE_DISPLAY.equals("ID") && txtAutoCompDNI.getText().equals(AutoCompleteTextField.dataGetReturnet.getIdx())) {
                         txtNombreCliente.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
                     } else if (ModeloDataAutocomplet.TIPE_DISPLAY.equals("NAME")
@@ -55,6 +58,8 @@ public class MainVentas extends javax.swing.JPanel {
                         System.out.println("Valor:" + txtAutoCompDNI.getText());
                         txtNombreCliente.setText("");
                     }
+                    */
+                    
                 }
             }
         });
@@ -64,11 +69,26 @@ public class MainVentas extends javax.swing.JPanel {
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN)
                         && AutoCompleteTextField.dataGetReturnet != null) {
-                    txtCodigo.setText(AutoCompleteTextField.dataGetReturnet.getIdx());
-                    txtPu.setText(AutoCompleteTextField.dataGetReturnet.getOtherData());
-                    
+                    txtCodigo.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
+                    String[] dataX=AutoCompleteTextField.dataGetReturnet.getOtherData().split(":");
+                    txtPu.setText(dataX[0]);
+                    txtStock.setText(dataX[1]);                    
                 }
-            }
+            }            
+        });
+        
+        txtCantidad.addKeyListener(new KeyAdapter() { 
+            double pu=0, cant=0;
+            @Override
+            public void keyReleased(KeyEvent e) {
+                    
+                    pu=Double.parseDouble(String.valueOf(
+                            txtPu.getText().equals("")?"0":txtPu.getText()));
+                    cant=Double.parseDouble(String.valueOf(
+                            txtCantidad.getText().equals("")?"0":txtCantidad.getText()));                    
+                    txtPrecioTotal.setText(String.valueOf(pu*cant));
+            } 
+            
             
         });
         
@@ -77,12 +97,12 @@ public class MainVentas extends javax.swing.JPanel {
     public void buscarCliente(){
         daoC = new ClienteDAO();
         items = daoC.listAutoComplet("");
-        AutoCompleteTextField.setupAutoComplete(txtAutoCompDNI, items, "NAME");//ID,NAME, OTHER     
+        AutoCompleteTextField.setupAutoComplete(txtAutoCompDNI, items, "ID");//ID,NAME, OTHER     
     }
     public void buscarProducto(){
         daoP = new ProductoDAO();
         itemsP = daoP.listAutoComplet("");
-        AutoCompleteTextField.setupAutoComplete(txtProducto, itemsP, "NAME");//ID,NAME, OTHER     
+        AutoCompleteTextField.setupAutoComplete(txtProducto, itemsP, "ID");//ID,NAME, OTHER     
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,13 +127,13 @@ public class MainVentas extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtStock = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtPu = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtPrecioTotal = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -202,9 +222,14 @@ public class MainVentas extends javax.swing.JPanel {
 
         jLabel7.setText("Cantidad:");
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtCantidadActionPerformed(evt);
+            }
+        });
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyPressed(evt);
             }
         });
 
@@ -233,10 +258,10 @@ public class MainVentas extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +270,7 @@ public class MainVentas extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -265,10 +290,10 @@ public class MainVentas extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -406,9 +431,9 @@ public class MainVentas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreClienteActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -432,6 +457,11 @@ public class MainVentas extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtCantidadKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,14 +492,14 @@ public class MainVentas extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField txtAutoCompDNI;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombreCliente;
+    private javax.swing.JTextField txtPrecioTotal;
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtPu;
+    private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 
 }

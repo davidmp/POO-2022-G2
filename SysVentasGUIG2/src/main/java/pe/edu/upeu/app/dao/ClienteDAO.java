@@ -163,7 +163,7 @@ public class ClienteDAO implements ClienteDaoI {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ModeloDataAutocomplet data = new ModeloDataAutocomplet();
-                ModeloDataAutocomplet.TIPE_DISPLAY = "ID";
+                //ModeloDataAutocomplet.TIPE_DISPLAY = "ID";
                 data.setIdx(rs.getString("dniruc"));
                 data.setNombreDysplay(rs.getString("nombrers"));
                 data.setOtherData(rs.getString("tipo"));
