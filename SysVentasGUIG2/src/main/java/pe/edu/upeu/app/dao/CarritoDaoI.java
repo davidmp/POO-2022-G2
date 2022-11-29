@@ -11,4 +11,6 @@ import pe.edu.upeu.app.modelo.CarritoTO;
 public interface CarritoDaoI {
     public List<CarritoTO> lista(String dniruc);
     public int crear(CarritoTO to);
+    public int delete(int id);
+    public int deleteCarAll(String dni);
 }

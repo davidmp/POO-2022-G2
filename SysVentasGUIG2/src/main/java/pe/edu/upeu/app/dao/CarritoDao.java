@@ -49,7 +49,7 @@ public class CarritoDao implements CarritoDaoI{
     public int crear(CarritoTO to) {
         int idx=0;
         int i=0;
-        String sql="insert into carrito(dniruc, id_producto, nombre_producto"
+        String sql="insert into carrito(dniruc, id_producto, nombre_producto, "
                 + "cantidad, punitario,ptotal,estado) values(?,?,?,?,?,?,?)";
         try {
             ps=coneccionx.prepareStatement(sql);
@@ -62,8 +62,39 @@ public class CarritoDao implements CarritoDaoI{
             ps.setInt(++i, to.getEstado());
            idx= ps.executeUpdate();
         } catch (Exception e) {
+            System.out.println("Error" + e.getMessage());
         }
         return idx;
+    }
+
+    @Override
+    public int delete(int id) {
+        int idx=0;
+        int i=0;
+        String sql="delete from carrito where id_carrito=?";
+        try {
+             ps=coneccionx.prepareStatement(sql);
+             ps.setInt(++i, id);
+             idx=ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error :"+e.getMessage());
+        }        
+        return idx;
+    }
+
+    @Override
+    public int deleteCarAll(String dni) {
+        int idx=0;
+        int i=0;
+        String sql="delete from carrito where dniruc=?";
+        try {
+             ps=coneccionx.prepareStatement(sql);
+             ps.setString(++i, dni);
+             idx=ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error :"+e.getMessage());
+        }        
+        return idx;        
     }
     
 }

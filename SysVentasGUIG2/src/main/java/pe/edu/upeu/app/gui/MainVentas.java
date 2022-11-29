@@ -4,9 +4,11 @@
  */
 package pe.edu.upeu.app.gui;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -21,8 +23,12 @@ import pe.edu.upeu.app.dao.ClienteDAO;
 import pe.edu.upeu.app.dao.ClienteDaoI;
 import pe.edu.upeu.app.dao.ProductoDAO;
 import pe.edu.upeu.app.dao.ProductoDaoI;
+import pe.edu.upeu.app.dao.VentaDao;
+import pe.edu.upeu.app.dao.VentaDaoI;
 import pe.edu.upeu.app.modelo.CarritoTO;
 import pe.edu.upeu.app.modelo.ClienteTO;
+import pe.edu.upeu.app.modelo.VentaDetalleTO;
+import pe.edu.upeu.app.modelo.VentaTO;
 
 /**
  *
@@ -33,12 +39,13 @@ public class MainVentas extends javax.swing.JPanel {
     /**
      * Creates new form MainVentas
      */
-    
     ClienteDaoI daoC;
     CarritoDaoI daoCA;
     ProductoDaoI daoP;
+    VentaDaoI daoV;
     List<ModeloDataAutocomplet> items;
     List<ModeloDataAutocomplet> itemsP;
+
     public MainVentas() {
         initComponents();
 
@@ -49,8 +56,9 @@ public class MainVentas extends javax.swing.JPanel {
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN)
                         && AutoCompleteTextField.dataGetReturnet != null) {
-                        //txtAutoCompDNI.setText(AutoCompleteTextField.dataGetReturnet.getIdx());
-                        txtNombreCliente.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
+                    //txtAutoCompDNI.setText(AutoCompleteTextField.dataGetReturnet.getIdx());
+                    txtNombreCliente.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
+                    listarCarrito(txtAutoCompDNI.getText());
                     /*
                     if (ModeloDataAutocomplet.TIPE_DISPLAY.equals("ID") && txtAutoCompDNI.getText().equals(AutoCompleteTextField.dataGetReturnet.getIdx())) {
                         txtNombreCliente.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
@@ -67,8 +75,8 @@ public class MainVentas extends javax.swing.JPanel {
                         System.out.println("Valor:" + txtAutoCompDNI.getText());
                         txtNombreCliente.setText("");
                     }
-                    */
-                    
+                     */
+
                 }
             }
         });
@@ -79,45 +87,47 @@ public class MainVentas extends javax.swing.JPanel {
                 if ((e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN)
                         && AutoCompleteTextField.dataGetReturnet != null) {
                     txtCodigo.setText(AutoCompleteTextField.dataGetReturnet.getNombreDysplay());
-                    String[] dataX=AutoCompleteTextField.dataGetReturnet.getOtherData().split(":");
+                    String[] dataX = AutoCompleteTextField.dataGetReturnet.getOtherData().split(":");
                     txtPu.setText(dataX[0]);
-                    txtStock.setText(dataX[1]);                    
+                    txtStock.setText(dataX[1]);
                 }
-            }            
+            }
         });
-        
-        txtCantidad.addKeyListener(new KeyAdapter() { 
-            double pu=0, cant=0;
+
+        txtCantidad.addKeyListener(new KeyAdapter() {
+            double pu = 0, cant = 0;
+
             @Override
             public void keyReleased(KeyEvent e) {
-                    
-                    pu=Double.parseDouble(String.valueOf(
-                            txtPu.getText().equals("")?"0":txtPu.getText()));
-                    cant=Double.parseDouble(String.valueOf(
-                            txtCantidad.getText().equals("")?"0":txtCantidad.getText()));                    
-                    txtPrecioTotal.setText(String.valueOf(pu*cant));
-            } 
-            
-            
+
+                pu = Double.parseDouble(String.valueOf(
+                        txtPu.getText().equals("") ? "0" : txtPu.getText()));
+                cant = Double.parseDouble(String.valueOf(
+                        txtCantidad.getText().equals("") ? "0" : txtCantidad.getText()));
+                txtPrecioTotal.setText(String.valueOf(pu * cant));
+            }
+
         });
-        
+
     }
     DefaultTableModel modelo;
-    public void listarCarrito(String dni){
-        daoCA=new CarritoDao();
+
+    public List<CarritoTO> listarCarrito(String dni) {
+        daoCA = new CarritoDao();
         List<CarritoTO> listarCleintes = daoCA.lista(dni);
         jTable1.setAutoCreateRowSorter(true);
         modelo = (DefaultTableModel) jTable1.getModel();
-        ButtonsPanel.metaDataButtons=new String[][]{{"","data-add-icon.png"}};
+        ButtonsPanel.metaDataButtons = new String[][]{{"", "del-icon.png"}};
         jTable1.setRowHeight(40);
-        TableColumn column=jTable1.getColumnModel().getColumn(8);
+        TableColumn column = jTable1.getColumnModel().getColumn(8);
         column.setCellRenderer(new ButtonsRenderer());
-        ButtonsEditor be=new ButtonsEditor(jTable1);
+        ButtonsEditor be = new ButtonsEditor(jTable1);
         column.setCellEditor(be);
+        modelo.setNumRows(0);
         Object[] ob = new Object[9];
-        
+        double impoTotal = 0, igv = 0;
         for (int i = 0; i < listarCleintes.size(); i++) {
-            int x=-1;            
+            int x = -1;
             ob[++x] = listarCleintes.get(i).getIdCarrito();
             ob[++x] = listarCleintes.get(i).getDniruc();
             ob[++x] = listarCleintes.get(i).getIdProducto();
@@ -126,22 +136,46 @@ public class MainVentas extends javax.swing.JPanel {
             ob[++x] = listarCleintes.get(i).getPunitario();
             ob[++x] = listarCleintes.get(i).getPtotal();
             ob[++x] = listarCleintes.get(i).getEstado();
-            ob[++x]="";
+            ob[++x] = "";
+            impoTotal += Double.parseDouble(String.valueOf(listarCleintes.get(i).getPtotal()));
             modelo.addRow(ob);
         }
-        jTable1.setModel(modelo);        
+        JButton btnDel = be.getCellEditorValue().buttons.get(0);
+        btnDel.addActionListener((ActionEvent e) -> {
+            System.out.println("VERRRRRR:");
+            int row
+                    = jTable1.convertRowIndexToModel(jTable1.getEditingRow());
+            Object o = jTable1.getModel().getValueAt(row, 0);
+            daoCA = new CarritoDao();
+            try {
+                daoCA.delete(Integer.parseInt(String.valueOf(o)));
+                listarCarrito(dni);
+            } catch (Exception ex) {
+                System.err.println("Error:" + ex.getMessage());
+            }
+            System.out.println("AAAA:" + String.valueOf(o));
+            JOptionPane.showMessageDialog(this, "Editing: " + o);
+        });
+        jTable1.setModel(modelo);
+        txtImporteTotal.setText(String.valueOf(impoTotal));
+        double pv = impoTotal / 1.18;
+        txtPrecioB.setText(String.valueOf(Math.round(pv * 100.0) / 100.0));
+        txtIgv.setText(String.valueOf(Math.round((pv * 0.18) * 100.0) / 100.0));
+        return  listarCleintes;
     }
-    
-    public void buscarCliente(){
+
+    public void buscarCliente() {
         daoC = new ClienteDAO();
         items = daoC.listAutoComplet("");
         AutoCompleteTextField.setupAutoComplete(txtAutoCompDNI, items, "ID");//ID,NAME, OTHER     
     }
-    public void buscarProducto(){
+
+    public void buscarProducto() {
         daoP = new ProductoDAO();
         itemsP = daoP.listAutoComplet("");
         AutoCompleteTextField.setupAutoComplete(txtProducto, itemsP, "ID");//ID,NAME, OTHER     
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,13 +212,13 @@ public class MainVentas extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txtPrecioB = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txtIgv = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtDescuento = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        txtImporteTotal = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -348,13 +382,10 @@ public class MainVentas extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Dni/Ruc", "Id Producto", "Producto", "Cantidad", "P. Unit S/.", "P. Total S/.", "Estado", "Opc"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -401,14 +432,14 @@ public class MainVentas extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioB, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIgv, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(76, 76, 76)
@@ -416,10 +447,10 @@ public class MainVentas extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(538, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,10 +466,10 @@ public class MainVentas extends javax.swing.JPanel {
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPrecioB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIgv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -480,8 +511,44 @@ public class MainVentas extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        registarVenta();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public void limpiarCarrito(){
+        daoCA = new CarritoDao();
+        daoCA.deleteCarAll(txtAutoCompDNI.getText());
+        listarCarrito(txtAutoCompDNI.getText());
+    }
+    
+    
+    public void registarVenta(){
+        daoV=new VentaDao();
+        
+        List<CarritoTO> lista=listarCarrito(txtAutoCompDNI.getText());
+        VentaTO tov=new VentaTO();
+        tov.setDniruc(txtAutoCompDNI.getText());
+        tov.setIgv(Double.parseDouble(txtIgv.getText()));
+        tov.setPrecioBase(Double.parseDouble(txtPrecioB.getText()));
+        tov.setPrecioTotal(Double.parseDouble(txtImporteTotal.getText()));
+        int idx=daoV.createVenta(tov);
+        if(idx!=0){
+            for (CarritoTO carritoTO : lista) {
+                daoV=new VentaDao();
+                VentaDetalleTO vd=new VentaDetalleTO();
+                vd.setIdVenta(idx);
+                vd.setIdProducto(carritoTO.getIdProducto());
+                vd.setCantidad(carritoTO.getCantidad());
+                vd.setPu(carritoTO.getPunitario());
+                vd.setSubTotal(carritoTO.getPtotal());
+                vd.setDescuento(0);                
+                daoV.createVentaDetalle(vd);
+            }
+        }
+        limpiarCarrito();
+      
+    }
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         FormCliente pvc = new FormCliente();
@@ -508,8 +575,8 @@ public class MainVentas extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        daoCA=new CarritoDao();
-        CarritoTO to=new CarritoTO();
+        daoCA = new CarritoDao();
+        CarritoTO to = new CarritoTO();
         to.setDniruc(txtAutoCompDNI.getText());
         to.setIdProducto(Integer.parseInt(txtCodigo.getText()));
         to.setNombreProducto(txtProducto.getText());
@@ -545,15 +612,15 @@ public class MainVentas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtAutoCompDNI;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDescuento;
+    private javax.swing.JTextField txtIgv;
+    private javax.swing.JTextField txtImporteTotal;
     private javax.swing.JTextField txtNombreCliente;
+    private javax.swing.JTextField txtPrecioB;
     private javax.swing.JTextField txtPrecioTotal;
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtPu;
