@@ -18,6 +18,7 @@ public class ConnS {
     private ConnS() {
         try {
             Class.forName("org.sqlite.JDBC");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnS.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -50,6 +51,11 @@ public class ConnS {
                     try {
                         String dbUrl= "jdbc:sqlite:data/db_ventas.db?foreign_keys=on;";
                         connection = DriverManager.getConnection(dbUrl);
+                        /*connection=DriverManager.getConnection(
+  "jdbc:mysql://us-east.connect.psdb.cloud/sys_ventas?sslMode=VERIFY_IDENTITY",
+  "qlsryy9mmz18aeap56v8",
+  "pscale_pw_X4ZI0iO0hLB1YmSLrDjoKp90OHrIk55dKMJYL6im4xy");
+                        System.out.println("conexion Exitosa!!");*/
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

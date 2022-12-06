@@ -366,10 +366,10 @@ public class MainCliente extends javax.swing.JPanel {
         vals.add(new ValidatorItem("required|number|min:8|max:8", txtDni, "DNI"));
         vals.add(new ValidatorItem("required", txtNombres, "Nombre"));
         vals.add(new ValidatorItem("required", cbxTipo, "Tipo"));
-        vals.add(new ValidatorItem("required|date", txtDato1, "Fecha"));
-        vals.add(new ValidatorItem("required|email", txtDato2, "Correo"));
-        vals.add(new ValidatorItem("required|date", jDateChooser1, "Fecha"));
-        vals.add(new ValidatorItem("required", jHintTextField2, "Texto Hint"));
+        //vals.add(new ValidatorItem("required|date", txtDato1, "Fecha"));
+        //vals.add(new ValidatorItem("required|email", txtDato2, "Correo"));
+        //vals.add(new ValidatorItem("required|date", jDateChooser1, "Fecha"));
+        //vals.add(new ValidatorItem("required", jHintTextField2, "Texto Hint"));
 
         cDao = new ClienteDAO();
         ClienteTO to = new ClienteTO();
