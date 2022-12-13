@@ -4,6 +4,9 @@
  */
 package pe.edu.upeu.app.dao.conx;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -49,7 +52,8 @@ public class ConnS {
             synchronized (ConnS.class) {
                 if (connection == null) {
                     try {
-                        String dbUrl= "jdbc:sqlite:data/db_ventas.db?foreign_keys=on;";
+                        //String dbUrl= "jdbc:sqlite:data/db_ventas.db?foreign_keys=on;";
+                        String dbUrl= "jdbc:sqlite:"+getFile("db_ventas.db").getAbsolutePath()+"?foreign_keys=on;";
                         connection = DriverManager.getConnection(dbUrl);
                         /*connection=DriverManager.getConnection(
   "jdbc:mysql://us-east.connect.psdb.cloud/sys_ventas?sslMode=VERIFY_IDENTITY",
@@ -64,5 +68,10 @@ public class ConnS {
         }
         return connection;
     }
-
+    public File getFile(String filex) {
+        File newFolder = new File("data");
+        String ruta = newFolder.getAbsolutePath();
+        Path CAMINO = Paths.get(ruta + "/" + filex);        
+        return CAMINO.toFile();
+    }
 }
