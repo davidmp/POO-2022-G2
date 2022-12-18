@@ -1,22 +1,22 @@
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\comodin\TipoCliente.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\dao\conn\Conn.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\ProductoTO.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\Login.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\util\ErrorLogger.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\util\UtilsX.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\MainCliente.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\dao\ClienteDAO.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\ClienteMain.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Parser.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\ClienteTO.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\sysventas\SysVentasGUIPoo.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\util\MsgPanel.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\plano\JPanelMo3d.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Point2D.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\comodin\ComboBoxOption.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\MarcaTO.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Plane.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\CategoriaTO.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\MainGUI.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Function.java
-D:\PROGRMACION ORIENTADA A OBJETOS\DESARROLLO\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\plano\Plano.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\Login.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\MarcaTO.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Plane.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Function.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\plano\JPanelMo3d.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\comodin\ComboBoxOption.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\util\MsgPanel.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\dao\conn\Conn.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\util\ErrorLogger.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\MainGUI.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\ClienteMain.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Point2D.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\sysventas\SysVentasGUIPoo.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\MainCliente.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\ClienteTO.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\comodin\TipoCliente.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\util\UtilsX.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\plano\Plano.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\ProductoTO.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\gui\planoc\Parser.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\dao\ClienteDAO.java
+D:\POO DEV\OLDX\POO-2022-G2\SysVentasGUIPoo\src\main\java\pe\edu\upeu\modelo\CategoriaTO.java

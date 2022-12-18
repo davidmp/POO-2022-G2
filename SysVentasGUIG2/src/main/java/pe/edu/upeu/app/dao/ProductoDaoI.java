@@ -6,6 +6,8 @@ package pe.edu.upeu.app.dao;
 
 import java.util.List;
 import pe.com.syscenterlife.autocomp.ModeloDataAutocomplet;
+import pe.edu.upeu.app.modelo.CategoriaTO;
+import pe.edu.upeu.app.modelo.MarcaTO;
 import pe.edu.upeu.app.modelo.ProductoTO;
 
 /**
@@ -27,5 +29,8 @@ public interface ProductoDaoI {
 
     public void reportarProducto();
     
-    public List<ModeloDataAutocomplet> listAutoComplet(String filter);    
+    public List<ModeloDataAutocomplet> listAutoComplet(String filter);   
+    
+    public List<MarcaTO> listCmbMarca(String filter);
+    public List<CategoriaTO> listCmbCategoria(String filter);
 }

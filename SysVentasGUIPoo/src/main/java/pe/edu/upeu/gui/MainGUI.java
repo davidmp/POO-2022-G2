@@ -281,6 +281,7 @@ public class MainGUI extends JFrame{
         combox.addItem(new ComboBoxOption("O2","Bolivia"));        
         combox.addItem(new ComboBoxOption("O3","Chile"));        
         combox.addItem(new ComboBoxOption("O4","Argentina")); 
+        
         combox.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 System.out.println(((ComboBoxOption)combox.getSelectedItem()).getKey());

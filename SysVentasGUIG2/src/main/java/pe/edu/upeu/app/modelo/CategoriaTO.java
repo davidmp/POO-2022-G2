@@ -14,4 +14,9 @@ import lombok.Data;
 public class CategoriaTO {
     public int idCategoria;
     public String nombre;
+    
+   @Override
+    public String toString(){
+        return nombre;
+    }    
 }

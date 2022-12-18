@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Vector;
 import pe.com.syscenterlife.autocomp.ModeloDataAutocomplet;
 import pe.edu.upeu.app.dao.conx.ConnS;
+import pe.edu.upeu.app.modelo.CategoriaTO;
+import pe.edu.upeu.app.modelo.MarcaTO;
 import pe.edu.upeu.app.modelo.ProductoTO;
 import pe.edu.upeu.app.util.ErrorLogger;
 
@@ -91,6 +93,45 @@ public class ProductoDAO implements ProductoDaoI{
             System.out.println(e.toString());
         }
         return listarProducto;        
+    }
+
+    @Override
+    public List<MarcaTO> listCmbMarca(String filter) {
+        List<MarcaTO> listarclientes = new ArrayList();
+        String sql = "SELECT * FROM marca";
+        try {
+            //connection = new Conn().connectSQLite();
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                MarcaTO cli = new MarcaTO();
+                cli.setIdMarca(rs.getInt("id_marca"));
+                cli.setNombre(rs.getString("nombre"));
+                listarclientes.add(cli);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return listarclientes;        
+    }
+
+    @Override
+    public List<CategoriaTO> listCmbCategoria(String filter) {
+        List<CategoriaTO> listarclientes = new ArrayList();
+        String sql = "SELECT * FROM categoria";
+        try {
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                CategoriaTO cli = new CategoriaTO();
+                cli.setIdCategoria(rs.getInt("id_categoria"));
+                cli.setNombre(rs.getString("nombre"));
+                listarclientes.add(cli);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return listarclientes;          
     }
     
 }
